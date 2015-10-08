@@ -11,9 +11,18 @@ import XCTest
 
 class ConcurrentMapTests: XCTestCase {
   
+  let numbers = Array(0...9998)
+  var result = [Int]()
+  
+  func numberTransform(input: Int) -> Int {
+    let tempNumber = input * 100
+    return tempNumber / 100
+  }
+  
   override func setUp() {
     super.setUp()
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+
+    result = numbers.concurrentMap(numberTransform, maxConcurrentOperation: 5)
   }
   
   override func tearDown() {
@@ -23,14 +32,10 @@ class ConcurrentMapTests: XCTestCase {
   
   func testExample() {
     // This is an example of a functional test case.
-    XCTAssert(true, "Pass")
-  }
-  
-  func testPerformanceExample() {
-    // This is an example of a performance test case.
-    self.measureBlock() {
-      // Put the code you want to measure the time of here.
+    for (index,item) in result.enumerate() {
+      XCTAssertEqual(item, numbers[index])
     }
+    
   }
   
 }

@@ -13,18 +13,16 @@ extension Array {
 
   func concurrentMap<U>(transform: (Element -> U), maxConcurrentOperation: Int = 5) -> Array<U> {
 
-    func concurrentMapNonBatched<E, B>(array: Array<E>, transform: (E -> B), maxConcurrentOperation: Int = 5) -> Array<B> {
+    func processTransformations<E, B>(array: Array<E>, transform: (E -> B), maxConcurrentOperation: Int = 5) -> Array<B> {
 
       let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
       let group = dispatch_group_create()
       
-      let r = transform(array[0])
-      var results = Array<B>(count: array.count, repeatedValue:r)
+      var results = [B]()
       
-      for (index, item) in array.enumerate() {
+      for item in array {
         dispatch_group_async(group, queue) {
-          let r = transform(item)
-          results[index] = r
+          results.append(transform(item))
         }
       }
   
@@ -35,12 +33,12 @@ extension Array {
     let batchSize: Int = self.count / maxConcurrentOperation
     
     let slices = self.deconstruct(batchSize)
-    
-    return Array.construct( concurrentMapNonBatched(slices, transform: { (slice) -> ConstructructableArraySlice<U> in
+    let results = processTransformations(slices, transform: { (slice) -> ConstructructableArraySlice<U> in
       let transformedSlice = ConstructructableArraySlice<U>(array: slice.array.map { transform($0) }, startIndex: slice.startIndex)
       return transformedSlice
     }, maxConcurrentOperation: maxConcurrentOperation)
-    )
+    
+    return Array.construct(results)
   }
 }
 

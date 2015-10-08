@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C1088231BC6D87600301F76 /* ConcurrentMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29D71F1BBDE88F00A31FC4 /* ConcurrentMap.swift */; settings = {ASSET_TAGS = (); }; };
 		0C29D7001BBDE87F00A31FC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29D6FF1BBDE87F00A31FC4 /* AppDelegate.swift */; };
 		0C29D7021BBDE87F00A31FC4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29D7011BBDE87F00A31FC4 /* ViewController.swift */; };
 		0C29D7051BBDE87F00A31FC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C29D7031BBDE87F00A31FC4 /* Main.storyboard */; };
@@ -232,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C29D7161BBDE87F00A31FC4 /* ConcurrentMapTests.swift in Sources */,
+				0C1088231BC6D87600301F76 /* ConcurrentMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

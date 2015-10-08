@@ -29,15 +29,9 @@ class ViewController: UIViewController {
       }, maxConcurrentOperation: 5)
       
       finish()
-
-      
-//      array.concurrentMap({ (item) -> String in
-//        return randomString(item)
-//      }, completion: { sequence in
-//        finish()
-//      }, maxConcurrentOperation: 5)
     })
     
+
   }
 
   override func didReceiveMemoryWarning() {
