@@ -15,22 +15,27 @@ class ViewController: UIViewController {
     
     let array = Array(1...99999)
     
-    measure("concurrent map with two threads", block: { (finish) -> () in
+    measure("map on one thread", block: { (finish) -> () in
       
-      array.concurrentMap({ (item) -> String in
-        return randomString(item)
-      }, completion: {sequence in
-        finish()
-      }, maxConcurrentOperation: 5, batchSize: 1)
+      let newArray = array.map({ randomString($0) })
+      finish()
       
     })
     
-    measure("batched concurrent map with two threads", block: { (finish) -> () in
-      array.concurrentMap({ (item) -> String in
-        return randomString(item)
-      }, completion: { sequence in
-        finish()
-      }, maxConcurrentOperation: 5, batchSize: 10)
+    measure("batched concurrent map on 5 threads", block: { (finish) -> () in
+      
+      let newArray = array.concurrentMap( { (item) -> String in
+        randomString(item)
+      }, maxConcurrentOperation: 5)
+      
+      finish()
+
+      
+//      array.concurrentMap({ (item) -> String in
+//        return randomString(item)
+//      }, completion: { sequence in
+//        finish()
+//      }, maxConcurrentOperation: 5)
     })
     
   }
@@ -48,7 +53,7 @@ func randomString(len:Int) -> String {
   var c = Array(charSet.characters)
   var s:String = ""
   for _ in (1...100) {
-    s.append(c[Int(arc4random()) % c.count])
+    s.append(c[Int(arc4random_uniform(UInt32(c.count)))])
   }
   return s
 }

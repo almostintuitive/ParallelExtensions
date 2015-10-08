@@ -11,46 +11,36 @@ import Foundation
 
 extension Array {
 
-  func concurrentMap<U>(transform: (Element -> U), completion: (Array<U> -> Void), maxConcurrentOperation: Int = 5, batchSize: Int = 10) {
+  func concurrentMap<U>(transform: (Element -> U), maxConcurrentOperation: Int = 5) -> Array<U> {
 
-    func concurrentMapNonBatched<E, B>(array: Array<E>, transform: (E -> B), completion: (Array<B> -> Void), maxConcurrentOperation: Int = 5) {
-      
-      let queue = NSOperationQueue()
-      queue.maxConcurrentOperationCount = maxConcurrentOperation
-      
-      let lock = Syncronized(value: array)
-      var operationsLeft = array.count
+    func concurrentMapNonBatched<E, B>(array: Array<E>, transform: (E -> B), maxConcurrentOperation: Int = 5) -> Array<B> {
+
+      let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+      let group = dispatch_group_create()
       
       let r = transform(array[0])
       var results = Array<B>(count: array.count, repeatedValue:r)
       
       for (index, item) in array.enumerate() {
-        queue.addOperationWithBlock({ () -> Void in
+        dispatch_group_async(group, queue) {
           let r = transform(item)
-          lock.modify({ () -> () in
-            results[index] = r
-            operationsLeft--
-            if operationsLeft <= 0 {
-              completion(results)
-            }
-          })
-        })
+          results[index] = r
+        }
       }
+  
+      dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
+      return results
     }
-
-    if batchSize <= 1 {
-      concurrentMapNonBatched(self, transform: transform, completion: completion, maxConcurrentOperation: maxConcurrentOperation)
-      return
-    }
+    
+    let batchSize: Int = self.count / maxConcurrentOperation
     
     let slices = self.deconstruct(batchSize)
     
-    concurrentMapNonBatched(slices, transform: { (slice) -> ConstructructableArraySlice<U> in
+    return Array.construct( concurrentMapNonBatched(slices, transform: { (slice) -> ConstructructableArraySlice<U> in
       let transformedSlice = ConstructructableArraySlice<U>(array: slice.array.map { transform($0) }, startIndex: slice.startIndex)
       return transformedSlice
-    }, completion: { (results) -> Void in
-      completion(Array.construct(results))
     }, maxConcurrentOperation: maxConcurrentOperation)
+    )
   }
 }
 
@@ -79,37 +69,6 @@ extension Array {
   static func construct<T>(fromConstructables: [ConstructructableArraySlice<T>]) -> Array<T> {
     return fromConstructables.sort { $0.startIndex < $1.startIndex }.flatMap{ $0.array }
   }
-}
-
-
-class Syncronized<T> {
-  
-  init(value: T) {
-    self.value = value
-  }
-  
-  var value: T {
-    get {
-      var returnValue: T!
-      objc_sync_enter(self)
-      returnValue = backingValue
-      objc_sync_exit(self)
-      return returnValue
-    }
-    set {
-      objc_sync_enter(self)
-      backingValue = newValue
-      objc_sync_exit(self)
-    }
-  }
-  
-  func modify(closure: () -> ()) {
-    objc_sync_enter(self)
-    closure()
-    objc_sync_exit(self)
-  }
-  
-  private var backingValue: T!
 }
 
 
