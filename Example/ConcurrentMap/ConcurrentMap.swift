@@ -43,9 +43,6 @@ extension Array {
       return
     }
     
-    let queue = NSOperationQueue()
-    queue.maxConcurrentOperationCount = maxConcurrentOperation
-    
     let slices = self.deconstruct(batchSize)
     
     concurrentMapNonBatched(slices, transform: { (slice) -> ConstructructableArraySlice<U> in
