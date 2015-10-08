@@ -22,7 +22,7 @@ class ConcurrentMapTests: XCTestCase {
   override func setUp() {
     super.setUp()
 
-    result = numbers.concurrentMap(numberTransform, maxConcurrentOperation: 5)
+    result = numbers.concurrentMap(numberTransform, threads: 5)
   }
   
   override func tearDown() {

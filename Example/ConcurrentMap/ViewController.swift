@@ -24,13 +24,14 @@ class ViewController: UIViewController {
     
     measure("batched concurrent map on 4 threads", block: { (finish) -> () in
       
-      let newArray = array.concurrentMap( { (item) -> String in
-        randomString(item)
-      }, maxConcurrentOperation: 4)
+      let newArray = array.concurrentMap({ randomString($0) }, threads: 4)
+      
       
       finish()
     })
     
+    let newArray = array.concurrentMap({ randomString($0) })
+
 
   }
 

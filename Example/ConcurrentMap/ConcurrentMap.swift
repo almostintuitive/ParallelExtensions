@@ -11,9 +11,9 @@ import Foundation
 
 extension Array {
 
-  func concurrentMap<U>(transform: (Element -> U), maxConcurrentOperation: Int = 4) -> Array<U> {
+  func concurrentMap<U>(transform: (Element -> U), threads: Int = 4) -> Array<U> {
 
-    func processTransformations<E, B>(array: Array<E>, transform: (E -> B), maxConcurrentOperation: Int = 5) -> Array<B> {
+    func processTransformations<E, B>(array: Array<E>, transform: (E -> B), threads: Int = 5) -> Array<B> {
 
       let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
       let group = dispatch_group_create()
@@ -30,12 +30,12 @@ extension Array {
       return results
     }
     
-    let batchSize: Int = self.count / maxConcurrentOperation
+    let batchSize: Int = self.count / threads
     
     let slices = self.deconstruct(batchSize)
     let results = processTransformations(slices, transform: { (slice) -> ConstructructableArraySlice<U> in
       return ConstructructableArraySlice<U>(array: slice.array.map { transform($0) }, startIndex: slice.startIndex)
-    }, maxConcurrentOperation: maxConcurrentOperation)
+    }, threads: threads)
     
     return Array.construct(results)
   }
