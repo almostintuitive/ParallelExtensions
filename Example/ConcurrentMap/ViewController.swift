@@ -13,7 +13,7 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let array = Array(1...99999)
+    let array = Array(1...999)
     
     measure("map on one thread", block: { (finish) -> () in
       
@@ -22,11 +22,11 @@ class ViewController: UIViewController {
       
     })
     
-    measure("batched concurrent map on 5 threads", block: { (finish) -> () in
+    measure("batched concurrent map on 4 threads", block: { (finish) -> () in
       
       let newArray = array.concurrentMap( { (item) -> String in
         randomString(item)
-      }, maxConcurrentOperation: 5)
+      }, maxConcurrentOperation: 4)
       
       finish()
     })
@@ -46,7 +46,7 @@ func randomString(len:Int) -> String {
   let charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   var c = Array(charSet.characters)
   var s:String = ""
-  for _ in (1...100) {
+  for _ in (1...5000) {
     s.append(c[Int(arc4random_uniform(UInt32(c.count)))])
   }
   return s

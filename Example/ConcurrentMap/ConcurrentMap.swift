@@ -11,7 +11,7 @@ import Foundation
 
 extension Array {
 
-  func concurrentMap<U>(transform: (Element -> U), maxConcurrentOperation: Int = 5) -> Array<U> {
+  func concurrentMap<U>(transform: (Element -> U), maxConcurrentOperation: Int = 4) -> Array<U> {
 
     func processTransformations<E, B>(array: Array<E>, transform: (E -> B), maxConcurrentOperation: Int = 5) -> Array<B> {
 
@@ -34,8 +34,7 @@ extension Array {
     
     let slices = self.deconstruct(batchSize)
     let results = processTransformations(slices, transform: { (slice) -> ConstructructableArraySlice<U> in
-      let transformedSlice = ConstructructableArraySlice<U>(array: slice.array.map { transform($0) }, startIndex: slice.startIndex)
-      return transformedSlice
+      return ConstructructableArraySlice<U>(array: slice.array.map { transform($0) }, startIndex: slice.startIndex)
     }, maxConcurrentOperation: maxConcurrentOperation)
     
     return Array.construct(results)

@@ -30,12 +30,15 @@ class ConcurrentMapTests: XCTestCase {
     super.tearDown()
   }
   
-  func testExample() {
+  func testIfItemsAreEqual() {
     // This is an example of a functional test case.
     for (index,item) in result.enumerate() {
       XCTAssertEqual(item, numbers[index])
     }
-    
+  }
+  
+  func testIfArrayHasSameLength() {
+    XCTAssertEqual(numbers.count, result.count)
   }
   
 }
