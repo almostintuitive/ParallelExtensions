@@ -7,8 +7,6 @@ Now you can speed it up by using multiple threads. Like boss.
 
 The question is more like, why is this not in the standard library by default :P.
 
-ConcurrentMap is inspired [this blog post](http://blog.scottlogic.com/2014/10/29/concurrent-functional-swift.html) by [Colin Eberhardt](http://blog.scottlogic.com/ceberhardt/) 
-
 ### How?
 
       // specify the threads
@@ -25,6 +23,8 @@ Only use concurrentMap with pure functions that don't have any side effects (the
 
 - ConcurrentMap automatically batches you work according to how many threads it's distributing the functions on. If you have 1000 elements in the array, and you execute them on 10 threads, each thread will get a 100 functions.
 - The default number of threads it's using is 4. This seems to be the optimum. Feel free to play around with it, and please open an issue if you found that to be misleading.
+
+ConcurrentMap is inspired [this blog post](http://blog.scottlogic.com/2014/10/29/concurrent-functional-swift.html) by [Colin Eberhardt](http://blog.scottlogic.com/ceberhardt/) 
 
 ### License
 
