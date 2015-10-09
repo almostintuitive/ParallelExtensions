@@ -17,7 +17,7 @@ The question is more like, why is this not in the standard library by default :P
       
 ## Warning
 
-Only use concurrentMap with pure functions that don't have any side effects (they don't manipulate objects outside . If you do so, you'll open yourself to race conditions on scale. They're guaranteed to be executed parallel on background threads.
+Only use concurrentMap with pure functions that don't have any side effects (they don't manipulate objects outside their scope). If you do so, you'll open yourself to race conditions on scale. They're guaranteed to be executed parallel on background threads.
 
 ## A little bit more
 
