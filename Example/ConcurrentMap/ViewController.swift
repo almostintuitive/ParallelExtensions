@@ -13,7 +13,7 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let array = Array(1...999)
+    let array = Array(1...3999)
     
     measure("map on one thread", block: { (finish) -> () in
       
@@ -22,7 +22,7 @@ class ViewController: UIViewController {
       
     })
     
-    measure("batched concurrent map on 4 threads", block: { (finish) -> () in
+    measure("new batched concurrent map on 4 threads", block: { (finish) -> () in
       
       let newArray = array.concurrentMap({ randomString($0) }, threads: 4)
       
@@ -30,8 +30,11 @@ class ViewController: UIViewController {
       finish()
     })
     
-    let newArray = array.concurrentMap({ randomString($0) })
-
+    measure("constructedbatched concurrent map on 4 threads", block: { (finish) -> () in
+      
+      finish()
+    })
+    
 
   }
 
