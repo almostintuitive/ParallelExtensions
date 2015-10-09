@@ -6,6 +6,7 @@ Now you can speed it up by using multiple threads. Like boss.
 ### Why?
 
 The question is more like, why is this not in the standard library by default :P.
+
 ConcurrentMap is inspired [this blog post](http://blog.scottlogic.com/2014/10/29/concurrent-functional-swift.html) by [Colin Eberhardt](http://blog.scottlogic.com/ceberhardt/) 
 
 ### How?
