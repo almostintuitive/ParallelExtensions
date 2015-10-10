@@ -1,5 +1,7 @@
 # ConcurrentMap
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 We all love Array.map in Swift.
 Now you can speed it up by using multiple threads. Like boss.
 
