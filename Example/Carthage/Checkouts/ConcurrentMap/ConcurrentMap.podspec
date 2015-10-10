@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/itchingpixels"
 
   s.source       = { :git => "https://github.com/itchingpixels/ConcurrentMap.git", :tag => s.version }
-  s.source_files = 'ConcurrentMap/*'
+  s.source_files = 'Source/*'
   s.exclude_files = "Example/*"
   s.ios.deployment_target = '8.0'
 end
