@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ConcurrentMap"
-  s.version      = "0.1.2"
+  s.version      = "0.1.3"
   s.summary      = "Map (high-order function) on multiple threads"
 
   s.description  = <<-DESC

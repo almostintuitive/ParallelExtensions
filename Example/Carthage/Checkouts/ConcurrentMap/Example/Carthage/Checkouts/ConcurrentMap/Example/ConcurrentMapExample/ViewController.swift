@@ -30,8 +30,20 @@ class ViewController: UIViewController {
       
       finish()
     })
+    
+    measure("constructedbatched concurrent map on 4 threads", block: { (finish) -> () in
+      
+      finish()
+    })
+    
 
   }
+
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+
 
 }
 
