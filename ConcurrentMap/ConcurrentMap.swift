@@ -32,13 +32,37 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
         })
       }
       return buffer
+
     }
-    
     
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
     return results
     
   }
+  
+  
+  
+  @warn_unused_result
+  public func concurrentMapApply<U>(transform: (Self.Generator.Element -> U), threads: Int = 4) -> [U] {
+    
+    let r = transform(self[self.startIndex])
+    
+    var results = Array<U>(count: self.count, repeatedValue:r)
+    
+    results.withUnsafeMutableBufferPointer { (inout buffer: UnsafeMutableBufferPointer<U>) -> UnsafeMutableBufferPointer<U> in
+
+      dispatch_apply(self.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { index in
+        buffer[index] = transform(self[index])
+      })
+      return buffer
+      
+    }
+    
+    return results
+    
+  }
+  
 }
+
 
 
