@@ -3,7 +3,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 We all love Array.map in Swift.
-Now you can speed it up by using multiple threads. Like boss.
+Now you can speed it up by using multiple threads. Like a boss.
 
 ### Why?
 
@@ -19,7 +19,7 @@ The question is more like, why is this not in the standard library by default :P
       
 ### Warning
 
-Only use concurrentMap with pure functions that don't have any side effects (they don't manipulate objects outside their scope). If you do so, you'll open yourself to race conditions on scale. They're guaranteed to be executed parallel on background threads.
+Only use concurrentMap with pure functions that don't have any side effects (they don't manipulate objects outside their scope). If you do otherwise, you'll open yourself to race conditions on scale. They're guaranteed to be executed parallel on background threads.
 
 ### A little bit more
 
