@@ -22,9 +22,9 @@ class ViewController: UIViewController {
       
     })
     
-    measure("new batched concurrent map on 4 threads", block: { (finish) -> () in
+    measure("parallel map", block: { (finish) -> () in
       
-      let newArray = array.pmap { randomString($0) }
+      let newArray = array.parallelMap { randomString($0) }
       finish()
     })
 
