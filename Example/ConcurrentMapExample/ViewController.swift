@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import ConcurrentMap
-
+  
 class ViewController: UIViewController {
 
   override func viewDidLoad() {
@@ -25,9 +24,7 @@ class ViewController: UIViewController {
     
     measure("new batched concurrent map on 4 threads", block: { (finish) -> () in
       
-      let newArray = array.concurrentMap({ randomString($0) }, threads: 4)
-      
-      
+      let newArray = array.pmap { randomString($0) }
       finish()
     })
 
