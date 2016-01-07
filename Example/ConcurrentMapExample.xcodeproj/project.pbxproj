@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C33CFDB1C142C5300481271 /* ConcurrentMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C33CFDA1C142C5300481271 /* ConcurrentMap.swift */; };
+		0C25A7BD1C3EAE0700CE14B0 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C25A7B91C3EAE0700CE14B0 /* Atomic.swift */; };
+		0C25A7BE1C3EAE0700CE14B0 /* ConcurrentFind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C25A7BA1C3EAE0700CE14B0 /* ConcurrentFind.swift */; };
+		0C25A7BF1C3EAE0700CE14B0 /* ConcurrentMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C25A7BC1C3EAE0700CE14B0 /* ConcurrentMap.swift */; };
 		0C4562AE1BC9732B00B5243B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4562AD1BC9732B00B5243B /* AppDelegate.swift */; };
 		0C4562B31BC9732B00B5243B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C4562B11BC9732B00B5243B /* Main.storyboard */; };
 		0C4562B51BC9732B00B5243B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C4562B41BC9732B00B5243B /* Assets.xcassets */; };
@@ -16,8 +18,24 @@
 		0C82BA4E1BC9734400913F91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C82BA4C1BC9734400913F91 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0C25A7B61C3EAD5500CE14B0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		0C33CFDA1C142C5300481271 /* ConcurrentMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentMap.swift; sourceTree = "<group>"; };
+		0C25A7B91C3EAE0700CE14B0 /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Atomic.swift; path = ../../ConcurrentMap/Atomic.swift; sourceTree = "<group>"; };
+		0C25A7BA1C3EAE0700CE14B0 /* ConcurrentFind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcurrentFind.swift; path = ../../ConcurrentMap/ConcurrentFind.swift; sourceTree = "<group>"; };
+		0C25A7BB1C3EAE0700CE14B0 /* ConcurrentMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConcurrentMap.h; path = ../../ConcurrentMap/ConcurrentMap.h; sourceTree = "<group>"; };
+		0C25A7BC1C3EAE0700CE14B0 /* ConcurrentMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcurrentMap.swift; path = ../../ConcurrentMap/ConcurrentMap.swift; sourceTree = "<group>"; };
 		0C4562AA1BC9732B00B5243B /* ConcurrentMapExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcurrentMapExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4562AD1BC9732B00B5243B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C4562B21BC9732B00B5243B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -39,6 +57,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C25A7C01C3EAE0D00CE14B0 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				0C25A7B91C3EAE0700CE14B0 /* Atomic.swift */,
+				0C25A7BA1C3EAE0700CE14B0 /* ConcurrentFind.swift */,
+				0C25A7BB1C3EAE0700CE14B0 /* ConcurrentMap.h */,
+				0C25A7BC1C3EAE0700CE14B0 /* ConcurrentMap.swift */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
 		0C4562A11BC9732B00B5243B = {
 			isa = PBXGroup;
 			children = (
@@ -60,8 +89,8 @@
 			children = (
 				0C82BA4B1BC9734400913F91 /* Measure.swift */,
 				0C82BA4C1BC9734400913F91 /* ViewController.swift */,
-				0C33CFDA1C142C5300481271 /* ConcurrentMap.swift */,
 				0C4562AD1BC9732B00B5243B /* AppDelegate.swift */,
+				0C25A7C01C3EAE0D00CE14B0 /* Library */,
 				0C4562B11BC9732B00B5243B /* Main.storyboard */,
 				0C4562B41BC9732B00B5243B /* Assets.xcassets */,
 				0C4562B61BC9732B00B5243B /* LaunchScreen.storyboard */,
@@ -80,7 +109,7 @@
 				0C4562A61BC9732B00B5243B /* Sources */,
 				0C4562A71BC9732B00B5243B /* Frameworks */,
 				0C4562A81BC9732B00B5243B /* Resources */,
-				0CD533CA1BC97EF300B14470 /* ShellScript */,
+				0C25A7B61C3EAD5500CE14B0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,32 +165,17 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		0CD533CA1BC97EF300B14470 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/ConcurrentMap.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		0C4562A61BC9732B00B5243B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C25A7BD1C3EAE0700CE14B0 /* Atomic.swift in Sources */,
+				0C25A7BE1C3EAE0700CE14B0 /* ConcurrentFind.swift in Sources */,
 				0C82BA4E1BC9734400913F91 /* ViewController.swift in Sources */,
+				0C25A7BF1C3EAE0700CE14B0 /* ConcurrentMap.swift in Sources */,
 				0C82BA4D1BC9734400913F91 /* Measure.swift in Sources */,
 				0C4562AE1BC9732B00B5243B /* AppDelegate.swift in Sources */,
-				0C33CFDB1C142C5300481271 /* ConcurrentMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,15 +286,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ConcurrentMapExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = itchingpixels.ConcurrentMapExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -288,10 +300,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ConcurrentMapExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = itchingpixels.ConcurrentMapExample;
