@@ -16,6 +16,7 @@
 		0C4562B81BC9732B00B5243B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C4562B61BC9732B00B5243B /* LaunchScreen.storyboard */; };
 		0C82BA4D1BC9734400913F91 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C82BA4B1BC9734400913F91 /* Measure.swift */; };
 		0C82BA4E1BC9734400913F91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C82BA4C1BC9734400913F91 /* ViewController.swift */; };
+		0CFFED0F1C495853008DB27A /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFFED0E1C495853008DB27A /* CommonExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +45,7 @@
 		0C4562B91BC9732B00B5243B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C82BA4B1BC9734400913F91 /* Measure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
 		0C82BA4C1BC9734400913F91 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0CFFED0E1C495853008DB27A /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +64,9 @@
 			children = (
 				0C25A7B91C3EAE0700CE14B0 /* Atomic.swift */,
 				0C25A7BA1C3EAE0700CE14B0 /* ConcurrentFind.swift */,
-				0C25A7BB1C3EAE0700CE14B0 /* ConcurrentMap.h */,
 				0C25A7BC1C3EAE0700CE14B0 /* ConcurrentMap.swift */,
+				0CFFED0E1C495853008DB27A /* CommonExtensions.swift */,
+				0C25A7BB1C3EAE0700CE14B0 /* ConcurrentMap.h */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				0C25A7BF1C3EAE0700CE14B0 /* ConcurrentMap.swift in Sources */,
 				0C82BA4D1BC9734400913F91 /* Measure.swift in Sources */,
 				0C4562AE1BC9732B00B5243B /* AppDelegate.swift in Sources */,
+				0CFFED0F1C495853008DB27A /* CommonExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
