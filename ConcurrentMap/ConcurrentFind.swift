@@ -14,27 +14,23 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   public func parallelIndexOf(predicate: Self.Generator.Element -> Bool) -> Int? {
     guard !self.isEmpty else { return nil }
     
-    let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-    let group = dispatch_group_create()
+    let divideBy = 10
+    let batchSize: Int = Int(self.count) / divideBy
     
-    let batchSize: Int = Int(self.count) / 2
+    var found = [Int]()
     
-    var found = [Int: Int]()
-    
-    dispatch_group_async(group, queue) { () -> Void in
-      found[0] = self.batchedIndexOf(range: Range(self.startIndex...batchSize), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
-        return found[safe: 0] == nil && found[safe: 1] == nil
+    dispatch_apply(divideBy, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { index in
+      let start = self.startIndex + (index * batchSize)
+      let end = start + batchSize
+      let index = self.batchedIndexOf(range: Range(start...end), batchSize: max(batchSize, 100), predicate: predicate, checkIfContinue: {
+        return found.isEmpty
       })
+      if let index = index {
+        found.append(index)
+      }
     }
     
-    dispatch_group_async(group, queue) { () -> Void in
-      found[1] = self.batchedIndexOf(range: Range(batchSize..<self.endIndex), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
-        return found[safe: 0] == nil && found[safe: 1] == nil
-      })
-    }
-    
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
-    return found.values.first
+    return found.first
   }
   
 
