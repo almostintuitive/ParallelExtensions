@@ -33,49 +33,29 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
       })
     }
     
-    
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
     return found.values.first
   }
   
 
-  
+  @warn_unused_result
+  public func parallelFind(predicate: Self.Generator.Element -> Bool) -> Self.Generator.Element? {
+    if let foundIndex = self.parallelIndexOf(predicate) {
+      return self[foundIndex]
+    } else {
+      return nil
+    }
+  }
+
   
   
   @warn_unused_result
   public func parallelContains(predicate: Self.Generator.Element -> Bool) -> Bool {
-    
-    if let found = self.parallelIndexOf(predicate) {
+    if let _ = self.parallelIndexOf(predicate) {
       return true
     } else {
       return false
     }
-    
-    
-//    guard !self.isEmpty else { return false }
-//    
-//    let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-//    let group = dispatch_group_create()
-//    
-//    let batchSize: Int = Int(self.count) / 2
-//
-//    var found = (false, false)
-//    
-//    dispatch_group_async(group, queue) { () -> Void in
-//      found.0 = self.batchedContains(range: Range(self.startIndex...batchSize), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
-//        return found.0 == false && found.1 == false
-//      })
-//    }
-//    
-//    dispatch_group_async(group, queue) { () -> Void in
-//      found.1 = self.batchedContains(range: Range(batchSize..<self.endIndex), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
-//        return found.0 == false && found.1 == false
-//      })
-//    }
-//
-//
-//    dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
-//    return !(found.0 == false && found.1 == false)
   }
   
 
@@ -92,17 +72,8 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
       if !checkIfContinue() {
         return nil
       }
-      
     }
     return nil
-  }
-  
-  private func batchedContains(range range: Range<Self.Index>, batchSize: Int, predicate: Generator.Element -> Bool, checkIfContinue: () -> Bool) -> Bool {
-    if let _ = self.batchedIndexOf(range: range, batchSize: batchSize, predicate: predicate, checkIfContinue: checkIfContinue) {
-      return true
-    } else {
-      return false
-    }
   }
   
 }
