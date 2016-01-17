@@ -1,17 +1,17 @@
 //
-//  ConcurrentMap.swift
-//  ConcurrentMap
+//  ParallelMap.swift
+//  ParallelExtensions
 //
 //  Created by Mark Aron Szulyovszky on 01/10/2015.
 //  Copyright (c) 2015 Mark Aron Szulyovszky. All rights reserved.
 //
 
-import Foundation
+import Dispatch
 
 public extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int {
   
   @warn_unused_result
-  public func parallelMap<U>(transform: Self.Generator.Element -> U) -> [U] {
+  public func parallelMap<U>(transform: Generator.Element -> U) -> [U] {
     guard !self.isEmpty else { return Array() }
     
     let r = transform(self[self.startIndex])

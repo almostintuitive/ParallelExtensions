@@ -1,17 +1,17 @@
 //
-//  ConcurrentFind.swift
-//  ConcurrentMap
+//  ParallelFind.swift
+//  ParallelExtensions
 //
 //  Created by Mark Aron Szulyovszky on 06/01/2016.
 //  Copyright © 2016 itchingpixels. All rights reserved.
 //
 
-import Foundation
+import Dispatch
 
 public extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int {
   
   @warn_unused_result
-  public func parallelIndexOf(predicate: Self.Generator.Element -> Bool) -> Int? {
+  public func parallelIndexOf(predicate: Generator.Element -> Bool) -> Int? {
     guard !self.isEmpty else { return nil }
     
     // if it's running on iOS, we should use the more performant version that's optimised for 2 threads.
@@ -25,7 +25,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   
 
   @warn_unused_result
-  public func parallelFind(predicate: Self.Generator.Element -> Bool) -> Self.Generator.Element? {
+  public func parallelFind(predicate: Generator.Element -> Bool) -> Self.Generator.Element? {
     if let foundIndex = self.parallelIndexOf(predicate) {
       return self[foundIndex]
     } else {
@@ -36,7 +36,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   
   
   @warn_unused_result
-  public func parallelContains(predicate: Self.Generator.Element -> Bool) -> Bool {
+  public func parallelContains(predicate: Generator.Element -> Bool) -> Bool {
     if let _ = self.parallelIndexOf(predicate) {
       return true
     } else {
@@ -50,7 +50,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
 
 private extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int {
   
-  private func parallelIndexOfOn2Threads(predicate: Self.Generator.Element -> Bool) -> Int? {
+  private func parallelIndexOfOn2Threads(predicate: Generator.Element -> Bool) -> Int? {
     guard !self.isEmpty else { return nil }
     
     let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
@@ -77,7 +77,7 @@ private extension CollectionType where SubSequence : CollectionType, SubSequence
   }
   
   
-  private func parallelIndexOfWithDispatchApply(predicate: Self.Generator.Element -> Bool) -> Int? {
+  private func parallelIndexOfWithDispatchApply(predicate: Generator.Element -> Bool) -> Int? {
     
     let divideBy = 10
     let batchSize: Int = Int(self.count) / divideBy

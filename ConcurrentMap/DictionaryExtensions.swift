@@ -6,9 +6,7 @@
 //  Copyright © 2016 itchingpixels. All rights reserved.
 //
 
-import Foundation
-
-extension Dictionary {
+internal extension Dictionary {
   
   subscript (safe key: Key) -> Value? {
     if let foundValue = self[key] {
