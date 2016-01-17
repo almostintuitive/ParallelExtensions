@@ -10,6 +10,11 @@ import Dispatch
 
 public extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int {
   
+  /// Returns the first index where `value` appears in `self` or `nil` if
+  /// `value` is not found.
+  /// Uses multiple threads.
+  ///
+  /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
   public func parallelIndexOf(predicate: Generator.Element -> Bool) -> Int? {
     guard !self.isEmpty else { return nil }
@@ -23,7 +28,10 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     #endif
   }
   
-
+  /// Return the first element in `self` satisfies `predicate`.
+  /// Uses multiple threads.
+  ///
+  /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
   public func parallelFind(predicate: Generator.Element -> Bool) -> Self.Generator.Element? {
     if let foundIndex = self.parallelIndexOf(predicate) {
@@ -34,7 +42,10 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   }
 
   
-  
+  /// Return `true` if an element in `self` satisfies `predicate`.
+  /// Uses multiple threads.
+  ///
+  /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
   public func parallelContains(predicate: Generator.Element -> Bool) -> Bool {
     if let _ = self.parallelIndexOf(predicate) {
