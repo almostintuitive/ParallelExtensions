@@ -1,15 +1,15 @@
 //
-//  ConcurrentMapTests.swift
-//  ConcurrentMapTests
+//  ParallelExtensionsTests.swift
+//  ParallelExtensionsTests
 //
-//  Created by Mark Aron Szulyovszky on 10/10/2015.
-//  Copyright © 2015 itchingpixels. All rights reserved.
+//  Created by Mark Aron Szulyovszky on 17/01/2016.
+//  Copyright © 2016 Mark Aron Szulyovszky. All rights reserved.
 //
 
 import XCTest
-@testable import ConcurrentMap
+@testable import ParallelExtensions
 
-class ConcurrentMapTests: XCTestCase {
+class ParallelMapTests: XCTestCase {
     
   let numbers = Array(0...9998)
   
@@ -41,7 +41,7 @@ class ConcurrentMapTests: XCTestCase {
     
     XCTAssertEqual(numbers.count, result.count)
   }
-    
+  
   func testWithEmptyArray() {
     let result = [Int]().parallelMap { self.numberTransform($0) }
     XCTAssertEqual(0, result.count)

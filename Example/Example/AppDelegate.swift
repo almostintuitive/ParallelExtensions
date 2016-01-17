@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  ConcurrentMapExample
+//  Example
 //
-//  Created by Mark Aron Szulyovszky on 10/10/2015.
-//  Copyright © 2015 itchingpixels. All rights reserved.
+//  Created by Mark Aron Szulyovszky on 17/01/2016.
+//  Copyright © 2016 Mark Aron Szulyovszky. All rights reserved.
 //
 
 import UIKit

@@ -1,15 +1,15 @@
 //
 //  ViewController.swift
-//  ConcurrentMap
+//  Example
 //
-//  Created by Mark Aron Szulyovszky on 01/10/2015.
-//  Copyright (c) 2015 Mark Aron Szulyovszky. All rights reserved.
+//  Created by Mark Aron Szulyovszky on 17/01/2016.
+//  Copyright © 2016 Mark Aron Szulyovszky. All rights reserved.
 //
 
 import UIKit
-  
-class ViewController: UIViewController {
 
+class ViewController: UIViewController {
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     print(array.parallelContains { $0 == 1 })
     print(array.parallelContains { $0 == 299 })
     print(array.parallelContains { $0 == 601 })
-
+    
     
     measure("map on one thread", block: { (finish) -> () in
       let newArray = array.map { randomString($0) }
@@ -31,17 +31,17 @@ class ViewController: UIViewController {
       print(newArray.count)
       finish()
     })
-
+    
     
     let array2 = Array(1...399999)
-
+    
     measure("contains on one thread", block: { finish in
       let result = array2.contains { 399998 == $0 }
       print(result)
       finish()
     })
     
-
+    
     
     measure("contains on multiple threads", block: { finish in
       let result = array2.parallelContains { 399998 == $0 }
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
     })
     
   }
-
+  
 }
 
 func randomString(len:Int) -> String {
@@ -74,4 +74,3 @@ func randomString(len:Int) -> String {
   }
   return s
 }
-

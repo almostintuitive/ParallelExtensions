@@ -1,19 +1,17 @@
 //
-//  ParallelContainsTests.swift
-//  ConcurrentMap
+//  ParallelFindTests.swift
+//  ParallelExtensions
 //
-//  Created by Mark Aron Szulyovszky on 06/01/2016.
-//  Copyright © 2016 itchingpixels. All rights reserved.
+//  Created by Mark Aron Szulyovszky on 17/01/2016.
+//  Copyright © 2016 Mark Aron Szulyovszky. All rights reserved.
 //
 
 import XCTest
 
-class ParallelContainsTests: XCTestCase {
-
+class ParallelFindTests: XCTestCase {
   
   let numbers = Array(0...99998)
-  
-  
+
   override func setUp() {
     super.setUp()
     
@@ -27,7 +25,7 @@ class ParallelContainsTests: XCTestCase {
   func testIfItemsAreEqual() {
     let result = numbers.parallelContains { $0 == 99997 }
     XCTAssertEqual(true, result)
-
+    
   }
   
   
@@ -35,9 +33,9 @@ class ParallelContainsTests: XCTestCase {
     let result = [Int]().parallelContains { $0 == 99997 }
     XCTAssertEqual(false, result)
   }
-
   
- 
+  
+  
   func testOldPerformanceExample() {
     self.measureBlock {
       let result = self.numbers.contains { $0 == 99997 }
