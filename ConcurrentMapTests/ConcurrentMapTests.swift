@@ -37,6 +37,8 @@ class ConcurrentMapTests: XCTestCase {
   
   func testIfArrayHasSameLength() {
     let result = numbers.parallelMap { self.numberTransform($0) }
+    
+    
     XCTAssertEqual(numbers.count, result.count)
   }
     

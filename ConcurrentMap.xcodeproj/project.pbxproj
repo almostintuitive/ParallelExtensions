@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C25A79B1C3D692200CE14B0 /* ParallelContainsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C25A79A1C3D692200CE14B0 /* ParallelContainsTests.swift */; };
+		0C25A79F1C3EA97E00CE14B0 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C25A79E1C3EA97E00CE14B0 /* Atomic.swift */; };
 		0C30D8AF1BC94E56008027F1 /* ConcurrentMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C30D8AE1BC94E56008027F1 /* ConcurrentMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0C30D8B61BC94E56008027F1 /* ConcurrentMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C30D8AB1BC94E55008027F1 /* ConcurrentMap.framework */; settings = {ASSET_TAGS = (); }; };
+		0C30D8B61BC94E56008027F1 /* ConcurrentMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C30D8AB1BC94E55008027F1 /* ConcurrentMap.framework */; };
 		0C30D8BB1BC94E56008027F1 /* ConcurrentMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30D8BA1BC94E56008027F1 /* ConcurrentMapTests.swift */; };
-		0C30D8C61BC94E7F008027F1 /* ConcurrentMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30D8C51BC94E7F008027F1 /* ConcurrentMap.swift */; settings = {ASSET_TAGS = (); }; };
+		0C30D8C61BC94E7F008027F1 /* ConcurrentMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30D8C51BC94E7F008027F1 /* ConcurrentMap.swift */; };
+		0CBEA6DE1C3D62AB00F15B0F /* ConcurrentFind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBEA6DD1C3D62AB00F15B0F /* ConcurrentFind.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,6 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C25A79A1C3D692200CE14B0 /* ParallelContainsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallelContainsTests.swift; sourceTree = "<group>"; };
+		0C25A79E1C3EA97E00CE14B0 /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		0C30D8AB1BC94E55008027F1 /* ConcurrentMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ConcurrentMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C30D8AE1BC94E56008027F1 /* ConcurrentMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConcurrentMap.h; sourceTree = "<group>"; };
 		0C30D8B01BC94E56008027F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,6 +36,7 @@
 		0C30D8BA1BC94E56008027F1 /* ConcurrentMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentMapTests.swift; sourceTree = "<group>"; };
 		0C30D8BC1BC94E56008027F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C30D8C51BC94E7F008027F1 /* ConcurrentMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentMap.swift; sourceTree = "<group>"; };
+		0CBEA6DD1C3D62AB00F15B0F /* ConcurrentFind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentFind.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +79,10 @@
 		0C30D8AD1BC94E55008027F1 /* ConcurrentMap */ = {
 			isa = PBXGroup;
 			children = (
+				0C25A79E1C3EA97E00CE14B0 /* Atomic.swift */,
 				0C30D8AE1BC94E56008027F1 /* ConcurrentMap.h */,
 				0C30D8C51BC94E7F008027F1 /* ConcurrentMap.swift */,
+				0CBEA6DD1C3D62AB00F15B0F /* ConcurrentFind.swift */,
 				0C30D8B01BC94E56008027F1 /* Info.plist */,
 			);
 			path = ConcurrentMap;
@@ -84,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				0C30D8BA1BC94E56008027F1 /* ConcurrentMapTests.swift */,
+				0C25A79A1C3D692200CE14B0 /* ParallelContainsTests.swift */,
 				0C30D8BC1BC94E56008027F1 /* Info.plist */,
 			);
 			path = ConcurrentMapTests;
@@ -197,6 +206,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CBEA6DE1C3D62AB00F15B0F /* ConcurrentFind.swift in Sources */,
+				0C25A79F1C3EA97E00CE14B0 /* Atomic.swift in Sources */,
 				0C30D8C61BC94E7F008027F1 /* ConcurrentMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C30D8BB1BC94E56008027F1 /* ConcurrentMapTests.swift in Sources */,
+				0C25A79B1C3D692200CE14B0 /* ParallelContainsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

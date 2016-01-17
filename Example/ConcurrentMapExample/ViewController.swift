@@ -15,9 +15,14 @@ class ViewController: UIViewController {
     
     let array = Array(1...3999)
     
+    print(array.parallelContains { $0 == 1 })
+    print(array.parallelContains { $0 == 299 })
+    print(array.parallelContains { $0 == 601 })
+
+    
     measure("map on one thread", block: { (finish) -> () in
       
-      let newArray = array.map({ randomString($0) })
+      let newArray = array.map { randomString($0) }
       finish()
       
     })
@@ -28,6 +33,26 @@ class ViewController: UIViewController {
       finish()
     })
 
+    
+    let array2 = Array(1...399999)
+
+    measure("contains on one thread", block: { finish in
+      
+      let result = array2.contains { 399998 == $0 }
+      print(result)
+      finish()
+      
+    })
+    
+
+    
+    measure("contains on multiple thread", block: { finish in
+      
+      let result = array2.parallelContains { 399998 == $0 }
+      print(result)
+      finish()
+      
+    })
   }
 
 }

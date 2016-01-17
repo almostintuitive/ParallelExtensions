@@ -26,4 +26,5 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     
     return results
   }
+  
 }
