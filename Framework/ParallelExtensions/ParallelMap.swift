@@ -31,4 +31,37 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     return results
   }
   
+  /// Return an `Array` containing the results of mapping `transform`
+  /// over `self`. Uses multiple threads.
+  ///
+  /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
+  @warn_unused_result
+  public func parallelMap<U>(transform: Generator.Element throws -> U) throws -> [U] {
+    guard !self.isEmpty else { return Array() }
+    
+    do {
+      let r = try transform(self[self.startIndex])
+      var results = Array<U>(count: self.count, repeatedValue:r)
+      
+      var foundError: ErrorType?
+      
+      results.withUnsafeMutableBufferPointer { (inout buffer: UnsafeMutableBufferPointer<U>) -> UnsafeMutableBufferPointer<U> in
+        dispatch_apply(self.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { index in
+          do {
+            buffer[index] = try transform(self[index])
+          } catch let error {
+            foundError = error
+          }
+        })
+        return buffer
+      }
+      
+      if let foundError = foundError {
+        throw foundError
+      }
+
+      return results
+    }
+  }
+  
 }
