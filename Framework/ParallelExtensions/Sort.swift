@@ -56,7 +56,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     if (cpus - threadsRunning) > 0 {
       
       // spawn new queues
-      let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+      let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
       let group = dispatch_group_create()
       
       dispatch_group_async(group, queue) { () -> Void in

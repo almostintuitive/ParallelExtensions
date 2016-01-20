@@ -64,7 +64,7 @@ private extension CollectionType where SubSequence : CollectionType, SubSequence
   private func parallelIndexOfOn2Threads(predicate: Generator.Element -> Bool) -> Int? {
     guard !self.isEmpty else { return nil }
     
-    let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+    let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
     let group = dispatch_group_create()
     
     let batchSize: Int = Int(self.count) / 2

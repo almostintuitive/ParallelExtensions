@@ -1,24 +1,19 @@
 //
 //  ViewController.swift
-//  Example
+//  Example-OSX
 //
-//  Created by Mark Aron Szulyovszky on 17/01/2016.
+//  Created by Mark Aron Szulyovszky on 20/01/2016.
 //  Copyright © 2016 Mark Aron Szulyovszky. All rights reserved.
 //
 
-import UIKit
+import Cocoa
 
-class ViewController: UIViewController {
-  
+class ViewController: NSViewController {
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     let array = Array(1...3999)
-    
-    print(array.parallelContains { $0 == 1 })
-    print(array.parallelContains { $0 == 299 })
-    print(array.parallelContains { $0 == 601 })
-    
     
     measure("map on one thread", block: { (finish) -> () in
       let newArray = array.map { randomString($0) }
@@ -33,10 +28,10 @@ class ViewController: UIViewController {
     })
     
     
-    let array2 = Array(1...399999)
+    let array2 = Array(1...3999999)
     
     measure("contains on one thread", block: { finish in
-      let result = array2.contains { 399998 == $0 }
+      let result = array2.contains { 3999998 == $0 }
       print(result)
       finish()
     })
@@ -44,7 +39,7 @@ class ViewController: UIViewController {
     
     
     measure("contains on multiple threads", block: { finish in
-      let result = array2.parallelContains { 399998 == $0 }
+      let result = array2.parallelContains { 3999998 == $0 }
       print(result)
       finish()
     })
@@ -84,5 +79,9 @@ func randomString(len:Int) -> String {
   for _ in (1...5000) {
     s.append(c[Int(arc4random_uniform(UInt32(c.count)))])
   }
+//  NSThread.sleepForTimeInterval(1)
   return s
 }
+
+
+

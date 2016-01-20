@@ -22,7 +22,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     var results = Array<Generator.Element?>(count: self.count, repeatedValue: .None)
     
     results.withUnsafeMutableBufferPointer { (inout buffer: UnsafeMutableBufferPointer<Generator.Element?>) -> UnsafeMutableBufferPointer<Generator.Element?> in
-      dispatch_apply(self.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { index in
+      dispatch_apply(self.count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { index in
         let item = self[index]
         buffer[index] = predicate(item) ? item : nil
       })
@@ -44,7 +44,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     var foundError: ErrorType?
     
     results.withUnsafeMutableBufferPointer { (inout buffer: UnsafeMutableBufferPointer<Generator.Element?>) -> UnsafeMutableBufferPointer<Generator.Element?> in
-      dispatch_apply(self.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { index in
+      dispatch_apply(self.count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { index in
         let item = self[index]
         do {
           buffer[index] = try predicate(item) ? item : nil

@@ -37,7 +37,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   public func parallelForEach(body: Generator.Element -> Void) {
     guard !self.isEmpty else { return }
     
-    dispatch_apply(self.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { index in
+    dispatch_apply(self.count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { index in
       body(self[index])
     })
   }
