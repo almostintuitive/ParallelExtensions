@@ -18,7 +18,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   @warn_unused_result
   public func parallelIndexOf(predicate: Generator.Element -> Bool) -> Int? {
     guard !self.isEmpty else { return nil }
-    
+        
     // if it's running on iOS, we should use the more performant version that's optimised for 2 threads.
     // this makes a huge performance difference, since it slices the array optimally.
     #if os(iOS)
