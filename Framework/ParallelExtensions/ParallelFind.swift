@@ -69,22 +69,28 @@ private extension CollectionType where SubSequence : CollectionType, SubSequence
     
     let batchSize: Int = Int(self.count) / 2
     
-    var found = [Int: Int]()
+    var found = Int32(-1)
     
     dispatch_group_async(group, queue) { () -> Void in
-      found[0] = self.batchedIndexOf(range: Range(self.startIndex...batchSize), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
-        return found[safe: 0] == nil && found[safe: 1] == nil
+      let index = self.batchedIndexOf(range: Range(self.startIndex...batchSize), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
+        return found == Int32(-1)
       })
+      if index != -1 { OSAtomicAdd32Barrier(index+Int32(1), &found) }
     }
     
     dispatch_group_async(group, queue) { () -> Void in
-      found[1] = self.batchedIndexOf(range: Range(batchSize..<self.endIndex), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
-        return found[safe: 0] == nil && found[safe: 1] == nil
+      let index = self.batchedIndexOf(range: Range(batchSize..<self.endIndex), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
+        return found == Int32(-1)
       })
+      if index != -1 { OSAtomicAdd32Barrier(index+Int32(1), &found) }
     }
     
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
-    return found.values.first
+    if found == -1 {
+      return nil
+    } else {
+      return Int(found)
+    }
   }
   
   
@@ -93,36 +99,38 @@ private extension CollectionType where SubSequence : CollectionType, SubSequence
     let divideBy = 10
     let batchSize: Int = Int(self.count) / divideBy
     
-    var found = [Int]()
+    var found = Int32(-1)
     
     dispatch_apply(divideBy, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { index in
       let start = self.startIndex + (index * batchSize)
       let end = start + batchSize
       let index = self.batchedIndexOf(range: Range(start...end), batchSize: max(batchSize, 100), predicate: predicate, checkIfContinue: {
-        return found.isEmpty
+        return found == Int32(-1)
       })
-      if let index = index {
-        found.append(index)
-      }
+      if index != -1 { OSAtomicAdd32Barrier(index+Int32(1), &found) }
     }
     
-    return found.first
+    if found == -1 {
+      return nil
+    } else {
+      return Int(found)
+    }
   }
   
   
-  private func batchedIndexOf(range range: Range<Self.Index>, batchSize: Int, predicate: Generator.Element -> Bool, checkIfContinue: () -> Bool) -> Int? {
+  private func batchedIndexOf(range range: Range<Self.Index>, batchSize: Int, predicate: Generator.Element -> Bool, checkIfContinue: () -> Bool) -> Int32 {
     for startIndex in range.startIndex.stride(to: range.endIndex, by: batchSize) {
       let endIndex = min(startIndex + batchSize, self.count)
       for (index, item) in self[startIndex..<endIndex].enumerate() {
         if predicate(item) {
-          return index
+          return Int32(index)
         }
       }
       if !checkIfContinue() {
-        return nil
+        return Int32(-1)
       }
     }
-    return nil
+    return Int32(-1)
   }
 
 }
