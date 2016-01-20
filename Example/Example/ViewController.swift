@@ -61,6 +61,18 @@ class ViewController: UIViewController {
       finish()
     })
     
+    measure("sort on one thread", block: { finish in
+      let result = array2.sort(<)
+      print(result.count)
+      finish()
+    })
+    
+    measure("sort on multiple threads", block: { finish in
+      let result = array2.parallelSort(<)
+      print(result.count)
+      finish()
+    })
+    
   }
   
 }

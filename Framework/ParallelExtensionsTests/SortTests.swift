@@ -7,6 +7,8 @@
 //
 
 import XCTest
+@testable import ParallelExtensions
+
 
 class ParallelSortTests: XCTestCase {
 
@@ -19,9 +21,11 @@ class ParallelSortTests: XCTestCase {
   }
   
   func testExample() {
-    let numbers = (1000...100)
-    let sortedOriginal = numbers.sort()
-    let sortedParallel = numbers.parallelS
+    let numbers = Array(1...100)
+    let sortedOriginal = numbers.sort(<)
+    let sortedParallel = numbers.parallelSort(<)
+    
+    XCTAssertEqual(sortedOriginal, sortedParallel)
     
   }
   

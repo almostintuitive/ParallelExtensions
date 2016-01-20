@@ -6,6 +6,8 @@
 //  Copyright © 2016 Mark Aron Szulyovszky. All rights reserved.
 //
 
+import Foundation
+
 internal func numberOfCpus() -> Int {
   var cpuCores: UInt32 = 0
   var len = sizeof(UInt32)

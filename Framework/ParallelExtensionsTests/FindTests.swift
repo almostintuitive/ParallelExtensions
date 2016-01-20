@@ -7,6 +7,8 @@
 //
 
 import XCTest
+@testable import ParallelExtensions
+
 
 class ParallelFindTests: XCTestCase {
   

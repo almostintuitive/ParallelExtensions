@@ -8,10 +8,28 @@
 
 import Foundation
 
-public extension Array where Element: Comparable {
+public enum Half {
+  case First, Last
+}
 
+public extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int, SubSequence.Index == Int {
 
-  private func merge(a: [Element], b: [Element], mergeInto acc: [Element]) -> [Element] {
+  public func parallelSort(isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
+    
+    guard !self.isEmpty else { return Array() }
+    guard self.count > 1 else { return Array(self) }
+    
+    let cpus = numberOfCpus()
+
+    guard cpus == 1 else {
+      return self.sort(isOrderedBefore)
+    }
+
+    return mergeSort(cpus, threadsRunning: 0, isOrderedBefore: isOrderedBefore)
+  }
+  
+  
+  private func merge(var a: [Generator.Element], var b: [Generator.Element], mergeInto acc: [Generator.Element], isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
     guard !a.isEmpty else {
       return acc + b
     }
@@ -19,61 +37,68 @@ public extension Array where Element: Comparable {
       return acc + a
     }
     
-    if a[0] < b[0] {
-      return merge(Array(a.dropFirst(1)), b: b, mergeInto: acc + [a[0]])
+    if isOrderedBefore(a[0], b[0]) {
+      a.removeFirst()
+      return merge(a, b: b, mergeInto: acc + [a[0]], isOrderedBefore: isOrderedBefore)
     } else {
-      return merge(a, b: Array(b.dropFirst(1)), mergeInto: acc + [b[0]])
+      b.removeFirst()
+      return merge(a, b: b, mergeInto: acc + [b[0]], isOrderedBefore: isOrderedBefore)
     }
   }
   
-  func mergeSort(cpus: Int, threadsRunning: Int) -> Array {
+  private func mergeSort(cpus: Int, threadsRunning: Int, isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
     
-    guard self.count > 1 else {
-      return self
-    }
+    if self.count < 2  { return Array(self) }
     
-    var firstHalf: Array!
-    var secondHalf: Array!
+    var firstHalf: Array<Generator.Element>!
+    var secondHalf: Array<Generator.Element>!
     
-    if cpus - threadsRunning > 0 {
+    if (cpus - threadsRunning) > 0 {
       
+      // spawn new queues
       let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
       let group = dispatch_group_create()
       
       dispatch_group_async(group, queue) { () -> Void in
-        firstHalf = Array(self[0...self.count/2]).mergeSort(cpus, threadsRunning: threadsRunning-1)
+        firstHalf = self.halve(.First).mergeSort(cpus, threadsRunning: threadsRunning+2, isOrderedBefore: isOrderedBefore)
       }
       
       dispatch_group_async(group, queue) { () -> Void in
-        secondHalf = Array(self[self.count/2...self.count]).mergeSort(cpus, threadsRunning: threadsRunning-1)
+        secondHalf = self.halve(.Last).mergeSort(cpus, threadsRunning: threadsRunning+2, isOrderedBefore: isOrderedBefore)
       }
       dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
 
     } else {
-      firstHalf = Array(self[0...self.count/2]).mergeSort(cpus, threadsRunning: threadsRunning)
-      secondHalf = Array(self[self.count/2...self.count]).mergeSort(cpus, threadsRunning: threadsRunning)
+      
+      firstHalf = self.halve(.First).mergeSort(cpus, threadsRunning: threadsRunning, isOrderedBefore: isOrderedBefore)
+      secondHalf = self.halve(.Last).mergeSort(cpus, threadsRunning: threadsRunning, isOrderedBefore: isOrderedBefore)
+    
     }
     
-
-    
-    return merge(firstHalf, b: secondHalf, mergeInto: [])
-    
+    return merge(firstHalf, b: secondHalf, mergeInto: [], isOrderedBefore: isOrderedBefore)
   }
 
-  public func parallelSort() -> Array {
-    
-    guard self.count > 1 else {
-      return self
+
+  
+  private func halve(half: Half) -> SubSequence {
+    if self.count == 2 {
+      switch half {
+      case .First:
+        return self[self.startIndex...self.startIndex]
+      case .Last:
+        return self[self.endIndex-1...self.endIndex-1]
+      }
+    } else {
+      let middle = self.startIndex + (self.endIndex - self.startIndex)/2
+      switch half {
+      case .First:
+        return self[self.startIndex..<middle]
+      case .Last:
+        return self[middle..<self.endIndex]
+      }
     }
-    
-    let cpus = numberOfCpus()
-//    
-//    guard cpus == 1 else {
-//      return self.sort()
-//    }
-//    
-    return mergeSort(cpus, threadsRunning: 0)
   }
+
   
   
 }

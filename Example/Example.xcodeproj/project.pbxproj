@@ -7,19 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C1E13EA1C503E69005D8C18 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E13E31C503E69005D8C18 /* DictionaryExtensions.swift */; };
+		0C1E13EB1C503E69005D8C18 /* Each.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E13E41C503E69005D8C18 /* Each.swift */; };
+		0C1E13EC1C503E69005D8C18 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E13E51C503E69005D8C18 /* Filter.swift */; };
+		0C1E13ED1C503E69005D8C18 /* Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E13E61C503E69005D8C18 /* Find.swift */; };
+		0C1E13EE1C503E69005D8C18 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E13E71C503E69005D8C18 /* Map.swift */; };
+		0C1E13EF1C503E69005D8C18 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E13E81C503E69005D8C18 /* Sort.swift */; };
+		0C1E13F01C503E69005D8C18 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E13E91C503E69005D8C18 /* Utilities.swift */; };
 		0C1E6E891C4C0F9E006634BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E6E881C4C0F9E006634BA /* AppDelegate.swift */; };
 		0C1E6E8B1C4C0F9E006634BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E6E8A1C4C0F9E006634BA /* ViewController.swift */; };
 		0C1E6E8E1C4C0F9E006634BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C1E6E8C1C4C0F9E006634BA /* Main.storyboard */; };
 		0C1E6E901C4C0F9E006634BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C1E6E8F1C4C0F9E006634BA /* Assets.xcassets */; };
 		0C1E6E931C4C0F9E006634BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C1E6E911C4C0F9E006634BA /* LaunchScreen.storyboard */; };
 		0C1E6E9B1C4C0FB4006634BA /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E6E9A1C4C0FB4006634BA /* Measure.swift */; };
-		0C1E6EAC1C4C1005006634BA /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E6EA71C4C1005006634BA /* DictionaryExtensions.swift */; };
-		0C1E6EAD1C4C1005006634BA /* ParallelFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E6EA91C4C1005006634BA /* ParallelFilter.swift */; };
-		0C1E6EAE1C4C1005006634BA /* ParallelFind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E6EAA1C4C1005006634BA /* ParallelFind.swift */; };
-		0C1E6EAF1C4C1005006634BA /* ParallelMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E6EAB1C4C1005006634BA /* ParallelMap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C1E13E31C503E69005D8C18 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DictionaryExtensions.swift; path = ../../Framework/ParallelExtensions/DictionaryExtensions.swift; sourceTree = "<group>"; };
+		0C1E13E41C503E69005D8C18 /* Each.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Each.swift; path = ../../Framework/ParallelExtensions/Each.swift; sourceTree = "<group>"; };
+		0C1E13E51C503E69005D8C18 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = ../../Framework/ParallelExtensions/Filter.swift; sourceTree = "<group>"; };
+		0C1E13E61C503E69005D8C18 /* Find.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Find.swift; path = ../../Framework/ParallelExtensions/Find.swift; sourceTree = "<group>"; };
+		0C1E13E71C503E69005D8C18 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Map.swift; path = ../../Framework/ParallelExtensions/Map.swift; sourceTree = "<group>"; };
+		0C1E13E81C503E69005D8C18 /* Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sort.swift; path = ../../Framework/ParallelExtensions/Sort.swift; sourceTree = "<group>"; };
+		0C1E13E91C503E69005D8C18 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = ../../Framework/ParallelExtensions/Utilities.swift; sourceTree = "<group>"; };
 		0C1E6E851C4C0F9D006634BA /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C1E6E881C4C0F9E006634BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C1E6E8A1C4C0F9E006634BA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,10 +38,6 @@
 		0C1E6E921C4C0F9E006634BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C1E6E941C4C0F9E006634BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C1E6E9A1C4C0FB4006634BA /* Measure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
-		0C1E6EA71C4C1005006634BA /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DictionaryExtensions.swift; path = ../../Framework/ParallelExtensions/DictionaryExtensions.swift; sourceTree = "<group>"; };
-		0C1E6EA91C4C1005006634BA /* ParallelFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParallelFilter.swift; path = ../../Framework/ParallelExtensions/ParallelFilter.swift; sourceTree = "<group>"; };
-		0C1E6EAA1C4C1005006634BA /* ParallelFind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParallelFind.swift; path = ../../Framework/ParallelExtensions/ParallelFind.swift; sourceTree = "<group>"; };
-		0C1E6EAB1C4C1005006634BA /* ParallelMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParallelMap.swift; path = ../../Framework/ParallelExtensions/ParallelMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C1E13F11C503E6E005D8C18 /* ParallelExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				0C1E13E31C503E69005D8C18 /* DictionaryExtensions.swift */,
+				0C1E13E41C503E69005D8C18 /* Each.swift */,
+				0C1E13E51C503E69005D8C18 /* Filter.swift */,
+				0C1E13E61C503E69005D8C18 /* Find.swift */,
+				0C1E13E71C503E69005D8C18 /* Map.swift */,
+				0C1E13E81C503E69005D8C18 /* Sort.swift */,
+				0C1E13E91C503E69005D8C18 /* Utilities.swift */,
+			);
+			name = ParallelExtensions;
+			sourceTree = "<group>";
+		};
 		0C1E6E7C1C4C0F9D006634BA = {
 			isa = PBXGroup;
 			children = (
@@ -67,24 +87,13 @@
 				0C1E6E881C4C0F9E006634BA /* AppDelegate.swift */,
 				0C1E6E8A1C4C0F9E006634BA /* ViewController.swift */,
 				0C1E6E9A1C4C0FB4006634BA /* Measure.swift */,
-				0C1E6EA61C4C0FFB006634BA /* ParallelExtensions */,
 				0C1E6E8C1C4C0F9E006634BA /* Main.storyboard */,
+				0C1E13F11C503E6E005D8C18 /* ParallelExtensions */,
 				0C1E6E8F1C4C0F9E006634BA /* Assets.xcassets */,
 				0C1E6E911C4C0F9E006634BA /* LaunchScreen.storyboard */,
 				0C1E6E941C4C0F9E006634BA /* Info.plist */,
 			);
 			path = Example;
-			sourceTree = "<group>";
-		};
-		0C1E6EA61C4C0FFB006634BA /* ParallelExtensions */ = {
-			isa = PBXGroup;
-			children = (
-				0C1E6EA71C4C1005006634BA /* DictionaryExtensions.swift */,
-				0C1E6EA91C4C1005006634BA /* ParallelFilter.swift */,
-				0C1E6EAA1C4C1005006634BA /* ParallelFind.swift */,
-				0C1E6EAB1C4C1005006634BA /* ParallelMap.swift */,
-			);
-			name = ParallelExtensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,12 +168,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C1E6E8B1C4C0F9E006634BA /* ViewController.swift in Sources */,
+				0C1E13EC1C503E69005D8C18 /* Filter.swift in Sources */,
+				0C1E13EF1C503E69005D8C18 /* Sort.swift in Sources */,
+				0C1E13EE1C503E69005D8C18 /* Map.swift in Sources */,
 				0C1E6E891C4C0F9E006634BA /* AppDelegate.swift in Sources */,
+				0C1E13ED1C503E69005D8C18 /* Find.swift in Sources */,
+				0C1E13EB1C503E69005D8C18 /* Each.swift in Sources */,
 				0C1E6E9B1C4C0FB4006634BA /* Measure.swift in Sources */,
-				0C1E6EAF1C4C1005006634BA /* ParallelMap.swift in Sources */,
-				0C1E6EAD1C4C1005006634BA /* ParallelFilter.swift in Sources */,
-				0C1E6EAC1C4C1005006634BA /* DictionaryExtensions.swift in Sources */,
-				0C1E6EAE1C4C1005006634BA /* ParallelFind.swift in Sources */,
+				0C1E13F01C503E69005D8C18 /* Utilities.swift in Sources */,
+				0C1E13EA1C503E69005D8C18 /* DictionaryExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +324,7 @@
 				0C1E6E991C4C0F9E006634BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
