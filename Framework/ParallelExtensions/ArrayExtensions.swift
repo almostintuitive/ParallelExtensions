@@ -6,6 +6,8 @@
 //  Copyright © 2016 Mark Aron Szulyovszky. All rights reserved.
 //
 
+import Dispatch
+
 internal enum Half {
   case First, Last
 }
@@ -35,10 +37,12 @@ internal extension CollectionType where SubSequence : CollectionType, SubSequenc
 
 internal extension Array {
   
-  @inline(__always) internal mutating func withUnsafeMutableBufferIterate(body: (index: Int, buffer: UnsafeMutableBufferPointer<Element>) -> UnsafeMutableBufferPointer<Element>) {
+  @inline(__always) internal mutating func withUnsafeMutableBufferIterate(body: (index: Int, inout buffer: UnsafeMutableBufferPointer<Element>) -> UnsafeMutableBufferPointer<Element>) {
+    let count = self.count
+    
     self.withUnsafeMutableBufferPointer { (inout buffer: UnsafeMutableBufferPointer<Element>) -> UnsafeMutableBufferPointer<Element> in
-      dispatch_apply(self.count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { index in
-        body(index: index, buffer: buffer)
+      dispatch_apply(count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { index in
+        buffer = body(index: index, buffer: &buffer)
       })
       return buffer
     }

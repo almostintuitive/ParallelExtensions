@@ -20,6 +20,7 @@
 		0C1E6E901C4C0F9E006634BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C1E6E8F1C4C0F9E006634BA /* Assets.xcassets */; };
 		0C1E6E931C4C0F9E006634BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C1E6E911C4C0F9E006634BA /* LaunchScreen.storyboard */; };
 		0C1E6E9B1C4C0FB4006634BA /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E6E9A1C4C0FB4006634BA /* Measure.swift */; };
+		0CD0A8B61C50FCBB00C53FD7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0A8B51C50FCBB00C53FD7 /* ArrayExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		0C1E6E921C4C0F9E006634BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C1E6E941C4C0F9E006634BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C1E6E9A1C4C0FB4006634BA /* Measure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
+		0CD0A8B51C50FCBB00C53FD7 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayExtensions.swift; path = ../../Framework/ParallelExtensions/ArrayExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		0C1E13F11C503E6E005D8C18 /* ParallelExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				0CD0A8B51C50FCBB00C53FD7 /* ArrayExtensions.swift */,
 				0C1E13E31C503E69005D8C18 /* DictionaryExtensions.swift */,
 				0C1E13E41C503E69005D8C18 /* Each.swift */,
 				0C1E13E51C503E69005D8C18 /* Filter.swift */,
@@ -172,6 +175,7 @@
 				0C1E13EF1C503E69005D8C18 /* Sort.swift in Sources */,
 				0C1E13EE1C503E69005D8C18 /* Map.swift in Sources */,
 				0C1E6E891C4C0F9E006634BA /* AppDelegate.swift in Sources */,
+				0CD0A8B61C50FCBB00C53FD7 /* ArrayExtensions.swift in Sources */,
 				0C1E13ED1C503E69005D8C18 /* Find.swift in Sources */,
 				0C1E13EB1C503E69005D8C18 /* Each.swift in Sources */,
 				0C1E6E9B1C4C0FB4006634BA /* Measure.swift in Sources */,
