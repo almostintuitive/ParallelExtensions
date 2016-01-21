@@ -8,9 +8,7 @@
 
 import Foundation
 
-public enum Half {
-  case First, Last
-}
+
 
 public extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int, SubSequence.Index == Int {
 
@@ -19,7 +17,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     guard !self.isEmpty else { return Array() }
     guard self.count > 1 else { return Array(self) }
     
-    let cpus = numberOfCpus()
+    let cpus = numberOfCores()
 
     guard cpus == 1 else {
       return self.sort(isOrderedBefore)
@@ -80,24 +78,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
 
 
   
-  private func halve(half: Half) -> SubSequence {
-    if self.count == 2 {
-      switch half {
-      case .First:
-        return self[self.startIndex...self.startIndex]
-      case .Last:
-        return self[self.endIndex-1...self.endIndex-1]
-      }
-    } else {
-      let middle = self.startIndex + (self.endIndex - self.startIndex)/2
-      switch half {
-      case .First:
-        return self[self.startIndex..<middle]
-      case .Last:
-        return self[middle..<self.endIndex]
-      }
-    }
-  }
+
 
   
   

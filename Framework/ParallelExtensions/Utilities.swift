@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal func numberOfCpus() -> Int {
+internal func numberOfCores() -> Int {
   var cpuCores: UInt32 = 0
   var len = sizeof(UInt32)
   sysctlbyname ("hw.ncpu", &cpuCores, &len, nil ,0);

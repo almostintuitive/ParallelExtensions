@@ -21,11 +21,9 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
 
     var results = Array<Generator.Element?>(count: self.count, repeatedValue: .None)
     
-    results.withUnsafeMutableBufferPointer { (inout buffer: UnsafeMutableBufferPointer<Generator.Element?>) -> UnsafeMutableBufferPointer<Generator.Element?> in
-      dispatch_apply(self.count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { index in
-        let item = self[index]
-        buffer[index] = predicate(item) ? item : nil
-      })
+    results.withUnsafeMutableBufferIterate { (index, buffer) -> UnsafeMutableBufferPointer<Generator.Element?> in
+      let item = self[index]
+      buffer[index] = predicate(item) ? item : nil
       return buffer
     }
     return results.flatMap { $0 }
@@ -43,15 +41,13 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     var results = Array<Generator.Element?>(count: self.count, repeatedValue: .None)
     var foundError: ErrorType?
     
-    results.withUnsafeMutableBufferPointer { (inout buffer: UnsafeMutableBufferPointer<Generator.Element?>) -> UnsafeMutableBufferPointer<Generator.Element?> in
-      dispatch_apply(self.count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { index in
-        let item = self[index]
-        do {
-          buffer[index] = try predicate(item) ? item : nil
-        } catch let error {
-          foundError = error
-        }
-      })
+    results.withUnsafeMutableBufferIterate { (index, buffer) -> UnsafeMutableBufferPointer<Generator.Element?> in
+      let item = self[index]
+      do {
+        buffer[index] = try predicate(item) ? item : nil
+      } catch let error {
+        foundError = error
+      }
       return buffer
     }
     
