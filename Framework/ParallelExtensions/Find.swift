@@ -16,9 +16,9 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelIndexOf(predicate: Generator.Element -> Bool) -> Int? {
+  public func parallelIndexOf(@noescape predicate: Generator.Element -> Bool) -> Int? {
     guard !self.isEmpty else { return nil }
-        
+    
     // if it's running on iOS, we should use the more performant version that's optimised for 2 threads.
     // this makes a huge performance difference, since it slices the array optimally.
     #if os(iOS)
@@ -33,7 +33,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelFind(predicate: Generator.Element -> Bool) -> Self.Generator.Element? {
+  public func parallelFind(@noescape predicate: Generator.Element -> Bool) -> Self.Generator.Element? {
     if let foundIndex = self.parallelIndexOf(predicate) {
       return self[foundIndex]
     } else {
@@ -47,7 +47,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelContains(predicate: Generator.Element -> Bool) -> Bool {
+  public func parallelContains(@noescape predicate: Generator.Element -> Bool) -> Bool {
     if let _ = self.parallelIndexOf(predicate) {
       return true
     } else {
@@ -61,8 +61,10 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
 
 private extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int {
   
-  private func parallelIndexOfOn2Threads(predicate: Generator.Element -> Bool) -> Int? {
-    guard !self.isEmpty else { return nil }
+  private func parallelIndexOfOn2Threads(@noescape predicate: Generator.Element -> Bool) -> Int? {
+    
+    typealias Predicate = Generator.Element -> Bool
+    let predicate1 = unsafeBitCast(predicate, Predicate.self)
     
     let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
     let group = dispatch_group_create()
@@ -72,14 +74,14 @@ private extension CollectionType where SubSequence : CollectionType, SubSequence
     var found = Int32(-1)
     
     dispatch_group_async(group, queue) { () -> Void in
-      let index = self.batchedIndexOf(range: Range(self.startIndex...batchSize), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
+      let index = self.batchedIndexOf(range: Range(self.startIndex...batchSize), batchSize: max(self.count/10, 100), predicate: predicate1, checkIfContinue: {
         return found == Int32(-1)
       })
       if index != -1 { OSAtomicAdd32Barrier(index+Int32(1), &found) }
     }
     
     dispatch_group_async(group, queue) { () -> Void in
-      let index = self.batchedIndexOf(range: Range(batchSize..<self.endIndex), batchSize: max(self.count/10, 100), predicate: predicate, checkIfContinue: {
+      let index = self.batchedIndexOf(range: Range(batchSize..<self.endIndex), batchSize: max(self.count/10, 100), predicate: predicate1, checkIfContinue: {
         return found == Int32(-1)
       })
       if index != -1 { OSAtomicAdd32Barrier(index+Int32(1), &found) }
@@ -94,7 +96,10 @@ private extension CollectionType where SubSequence : CollectionType, SubSequence
   }
   
   
-  private func parallelIndexOfWithDispatchApply(predicate: Generator.Element -> Bool) -> Int? {
+  private func parallelIndexOfWithDispatchApply(@noescape predicate: Generator.Element -> Bool) -> Int? {
+    
+    typealias Predicate = Generator.Element -> Bool
+    let predicate1 = unsafeBitCast(predicate, Predicate.self)
     
     let divideBy = 10
     let batchSize: Int = Int(self.count) / divideBy
@@ -104,7 +109,7 @@ private extension CollectionType where SubSequence : CollectionType, SubSequence
     dispatch_apply(divideBy, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { index in
       let start = self.startIndex + (index * batchSize)
       let end = start + batchSize
-      let index = self.batchedIndexOf(range: Range(start...end), batchSize: max(batchSize, 100), predicate: predicate, checkIfContinue: {
+      let index = self.batchedIndexOf(range: Range(start...end), batchSize: max(batchSize, 100), predicate: predicate1, checkIfContinue: {
         return found == Int32(-1)
       })
       if index != -1 { OSAtomicAdd32Barrier(index+Int32(1), &found) }

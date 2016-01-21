@@ -34,11 +34,14 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelForEach(body: Generator.Element -> Void) {
+  public func parallelForEach(@noescape body: Generator.Element -> Void) {
     guard !self.isEmpty else { return }
     
+    typealias Body = Generator.Element -> Void
+    let body1 = unsafeBitCast(body, Body.self)
+    
     dispatch_apply(self.count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { index in
-      body(self[index])
+      body1(self[index])
     })
   }
   

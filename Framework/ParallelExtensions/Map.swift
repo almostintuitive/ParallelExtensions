@@ -15,14 +15,17 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   /// 
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelMap<U>(transform: Generator.Element -> U) -> [U] {
+  public func parallelMap<U>(@noescape transform: Generator.Element -> U) -> [U] {
+    typealias Transform = Generator.Element -> U
+    let transform1 = unsafeBitCast(transform, Transform.self)
+    
     guard !self.isEmpty else { return Array() }
     
     let r = transform(self[self.startIndex])
     var results = Array<U>(count: self.count, repeatedValue:r)
     
     results.withUnsafeMutableBufferIterate { (index, buffer) -> UnsafeMutableBufferPointer<U> in
-      buffer[index] = transform(self[index])
+      buffer[index] = transform1(self[index])
       return buffer
     }
     
@@ -34,7 +37,10 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelMap<U>(transform: Generator.Element throws -> U) throws -> [U] {
+  public func parallelMap<U>(@noescape transform: Generator.Element throws -> U) throws -> [U] {
+    typealias Transform = Generator.Element throws -> U
+    let transform1 = unsafeBitCast(transform, Transform.self)
+    
     guard !self.isEmpty else { return Array() }
     
     do {
@@ -45,7 +51,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
       
       results.withUnsafeMutableBufferIterate { (index, buffer) -> UnsafeMutableBufferPointer<U> in
         do {
-          buffer[index] = try transform(self[index])
+          buffer[index] = try transform1(self[index])
         } catch let error {
           foundError = error
         }
