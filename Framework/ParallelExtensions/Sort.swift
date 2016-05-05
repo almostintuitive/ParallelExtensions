@@ -60,11 +60,11 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
       let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
       let group = dispatch_group_create()
       
-      dispatch_group_async(group, queue) { () -> Void in
+      dispatch_group_async(group, queue) {
         firstHalf = self.halve(.First).mergeSort(cpus, threadsRunning: threadsRunning+2, isOrderedBefore: isOrderedBefore)
       }
       
-      dispatch_group_async(group, queue) { () -> Void in
+      dispatch_group_async(group, queue) {
         secondHalf = self.halve(.Last).mergeSort(cpus, threadsRunning: threadsRunning+2, isOrderedBefore: isOrderedBefore)
       }
       dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
