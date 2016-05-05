@@ -11,23 +11,24 @@ import XCTest
 
 
 class ParallelSortTests: XCTestCase {
-
-  override func setUp() {
-    super.setUp()
-  }
   
-  override func tearDown() {
-    super.tearDown()
-  }
-  
-  func testExample() {
+  func testSortWith100Items() {
     let numbers = Array(1...100)
+    let sortedOriginal = numbers.sort(<)
+    let sortedParallel = numbers.parallelSort(<)
+    
+    XCTAssertEqual(sortedOriginal, sortedParallel)
+  }
+  
+  func testSortWith199Items() {
+    let numbers = Array(1...199)
     let sortedOriginal = numbers.sort(<)
     let sortedParallel = numbers.parallelSort(<)
     
     XCTAssertEqual(sortedOriginal, sortedParallel)
     
   }
+  
   
 
 }

@@ -41,7 +41,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   func parallelFilter(@noescape predicate: Generator.Element throws -> Bool) throws -> [Generator.Element] {
     guard !self.isEmpty else { return Array() }
     
-    typealias Predicate = Generator.Element -> Bool
+    typealias Predicate = Generator.Element throws -> Bool
     let predicate = unsafeBitCast(predicate, Predicate.self)
     
     var results = Array<Generator.Element?>(count: self.count, repeatedValue: .None)

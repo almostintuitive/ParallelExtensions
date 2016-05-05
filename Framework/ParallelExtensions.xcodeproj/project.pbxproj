@@ -20,6 +20,7 @@
 		0CA031141C4C0E3D00C6EAF1 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA031101C4C0E3D00C6EAF1 /* Map.swift */; };
 		0CA403541C4F232200BD3358 /* Each.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA403531C4F232200BD3358 /* Each.swift */; };
 		0CE513BE1C4C0E9500AB5012 /* FindTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE513BD1C4C0E9500AB5012 /* FindTests.swift */; };
+		4D22D9211CDB051200494C11 /* ForEachTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22D9201CDB051200494C11 /* ForEachTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		0CA031101C4C0E3D00C6EAF1 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		0CA403531C4F232200BD3358 /* Each.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Each.swift; sourceTree = "<group>"; };
 		0CE513BD1C4C0E9500AB5012 /* FindTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindTests.swift; sourceTree = "<group>"; };
+		4D22D9201CDB051200494C11 /* ForEachTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForEachTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				0C7467D31C4C0E1200C99EFE /* MapTests.swift */,
 				0CE513BD1C4C0E9500AB5012 /* FindTests.swift */,
 				0C50AC661C4FEBA600938365 /* SortTests.swift */,
+				4D22D9201CDB051200494C11 /* ForEachTests.swift */,
 				0C7467D51C4C0E1200C99EFE /* Info.plist */,
 			);
 			path = ParallelExtensionsTests;
@@ -247,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D22D9211CDB051200494C11 /* ForEachTests.swift in Sources */,
 				0C7467D41C4C0E1200C99EFE /* MapTests.swift in Sources */,
 				0C50AC671C4FEBA600938365 /* SortTests.swift in Sources */,
 				0CE513BE1C4C0E9500AB5012 /* FindTests.swift in Sources */,

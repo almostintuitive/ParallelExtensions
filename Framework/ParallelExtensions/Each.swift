@@ -33,7 +33,6 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   /// - Complexity: O(`self.count`)
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
-  @warn_unused_result
   func parallelForEach(@noescape body: Generator.Element -> Void) {
     guard !self.isEmpty else { return }
     
@@ -59,6 +58,21 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     }
   
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
+  }
+  
+  func parallelForEach(@noescape body: Generator.Element throws -> Void) throws {
+    var foundError: ErrorType?
+    self.parallelForEach { item in
+      do {
+        try body(item)
+      } catch let error {
+        foundError = error
+      }
+    }
+    
+    if let foundError = foundError {
+      throw foundError
+    }
   }
   
 }
