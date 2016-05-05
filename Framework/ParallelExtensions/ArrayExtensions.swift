@@ -32,20 +32,38 @@ internal extension CollectionType where SubSequence : CollectionType, SubSequenc
       }
     }
   }
+
 }
 
 
 internal extension Array {
   
-  @inline(__always) internal mutating func withUnsafeMutableBufferIterate(body: (index: Int, inout buffer: UnsafeMutableBufferPointer<Element>) -> UnsafeMutableBufferPointer<Element>) {
+  @inline(__always) mutating func parallelIterateWithUnsafeMutableBuffer(body: (index: Int, inout buffer: UnsafeMutableBufferPointer<Element>) -> UnsafeMutableBufferPointer<Element>) {
+    
+    let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
+    let group = dispatch_group_create()
+    
+    let batchSize = Int(self.count) / numberOfCores()
+    
+    let startIndex = self.startIndex
+    let endIndex = self.endIndex
     let count = self.count
     
     self.withUnsafeMutableBufferPointer { (inout buffer: UnsafeMutableBufferPointer<Element>) -> UnsafeMutableBufferPointer<Element> in
-      dispatch_apply(count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { index in
-        buffer = body(index: index, buffer: &buffer)
-      })
+      
+      for startIndex in startIndex.stride(to: endIndex, by: batchSize) {
+        dispatch_group_async(group, queue) {
+          let endIndex = min(startIndex + batchSize, count)
+          for index in startIndex..<endIndex {
+            buffer = body(index: index, buffer: &buffer)
+          }
+        }
+      }
       return buffer
+      
     }
+    
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
   }
   
 }

@@ -27,7 +27,10 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   }
   
   
-  private func merge(var a: [Generator.Element], var b: [Generator.Element], mergeInto acc: [Generator.Element], isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
+  private func merge(a: [Generator.Element], b: [Generator.Element], mergeInto acc: [Generator.Element], isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
+    var a = a
+    var b = b
+    
     guard !a.isEmpty else {
       return acc + b
     }

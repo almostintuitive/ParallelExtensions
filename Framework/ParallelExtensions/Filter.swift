@@ -16,17 +16,17 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelFilter(@noescape predicate: Generator.Element -> Bool) -> [Generator.Element] {
+  func parallelFilter(@noescape predicate: Generator.Element -> Bool) -> [Generator.Element] {
     guard !self.isEmpty else { return Array() }
     
     typealias Predicate = Generator.Element -> Bool
-    let predicate1 = unsafeBitCast(predicate, Predicate.self)
+    let predicate = unsafeBitCast(predicate, Predicate.self)
 
     var results = Array<Generator.Element?>(count: self.count, repeatedValue: .None)
     
-    results.withUnsafeMutableBufferIterate { (index, buffer) -> UnsafeMutableBufferPointer<Generator.Element?> in
+    results.parallelIterateWithUnsafeMutableBuffer { (index, buffer) -> UnsafeMutableBufferPointer<Generator.Element?> in
       let item = self[index]
-      buffer[index] = predicate1(item) ? item : nil
+      buffer[index] = predicate(item) ? item : nil
       return buffer
     }
     return results.flatMap { $0 }
@@ -38,19 +38,19 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelFilter(@noescape predicate: Generator.Element throws -> Bool) throws -> [Generator.Element] {
+  func parallelFilter(@noescape predicate: Generator.Element throws -> Bool) throws -> [Generator.Element] {
     guard !self.isEmpty else { return Array() }
     
     typealias Predicate = Generator.Element -> Bool
-    let predicate1 = unsafeBitCast(predicate, Predicate.self)
+    let predicate = unsafeBitCast(predicate, Predicate.self)
     
     var results = Array<Generator.Element?>(count: self.count, repeatedValue: .None)
     var foundError: ErrorType?
     
-    results.withUnsafeMutableBufferIterate { (index, buffer) -> UnsafeMutableBufferPointer<Generator.Element?> in
+    results.parallelIterateWithUnsafeMutableBuffer { (index, buffer) -> UnsafeMutableBufferPointer<Generator.Element?> in
       let item = self[index]
       do {
-        buffer[index] = try predicate1(item) ? item : nil
+        buffer[index] = try predicate(item) ? item : nil
       } catch let error {
         foundError = error
       }

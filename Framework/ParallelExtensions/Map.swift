@@ -15,17 +15,17 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   /// 
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelMap<U>(@noescape transform: Generator.Element -> U) -> [U] {
+  func parallelMap<U>(@noescape transform: Generator.Element -> U) -> [U] {
     typealias Transform = Generator.Element -> U
-    let transform1 = unsafeBitCast(transform, Transform.self)
+    let transform = unsafeBitCast(transform, Transform.self)
     
     guard !self.isEmpty else { return Array() }
     
     let r = transform(self[self.startIndex])
     var results = Array<U>(count: self.count, repeatedValue:r)
     
-    results.withUnsafeMutableBufferIterate { (index, buffer) -> UnsafeMutableBufferPointer<U> in
-      buffer[index] = transform1(self[index])
+    results.parallelIterateWithUnsafeMutableBuffer { (index, buffer) -> UnsafeMutableBufferPointer<U> in
+      buffer[index] = transform(self[index])
       return buffer
     }
     
@@ -37,9 +37,9 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelMap<U>(@noescape transform: Generator.Element throws -> U) throws -> [U] {
+  func parallelMap<U>(@noescape transform: Generator.Element throws -> U) throws -> [U] {
     typealias Transform = Generator.Element throws -> U
-    let transform1 = unsafeBitCast(transform, Transform.self)
+    let transform = unsafeBitCast(transform, Transform.self)
     
     guard !self.isEmpty else { return Array() }
     
@@ -49,9 +49,9 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
       
       var foundError: ErrorType?
       
-      results.withUnsafeMutableBufferIterate { (index, buffer) -> UnsafeMutableBufferPointer<U> in
+      results.parallelIterateWithUnsafeMutableBuffer { (index, buffer) -> UnsafeMutableBufferPointer<U> in
         do {
-          buffer[index] = try transform1(self[index])
+          buffer[index] = try transform(self[index])
         } catch let error {
           foundError = error
         }
