@@ -14,7 +14,7 @@ internal enum Half {
 
 internal extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int, SubSequence.Index == Int {
   
-  internal func halve(half: Half) -> SubSequence {
+  func halve(half: Half) -> SubSequence {
     if self.count == 2 {
       switch half {
       case .First:
