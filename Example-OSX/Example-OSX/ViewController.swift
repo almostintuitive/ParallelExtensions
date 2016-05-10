@@ -76,12 +76,9 @@ func randomString(len:Int) -> String {
   let charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   var c = Array(charSet.characters)
   var s:String = ""
-  for _ in (1...5000) {
-    s.append(c[Int(arc4random_uniform(UInt32(c.count)))])
+  for i in (1...500) {
+    s.append(c[min(charSet.characters.count-1, i)])
   }
-//  NSThread.sleepForTimeInterval(1)
   return s
 }
-
-
 

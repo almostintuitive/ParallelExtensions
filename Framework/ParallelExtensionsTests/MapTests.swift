@@ -31,14 +31,14 @@ class ParallelMapTests: XCTestCase {
   func testIfItemsAreEqual() {
     let result = numbers.parallelMap { self.numberTransform($0) }
     for (index,item) in result.enumerate() {
-      XCTAssertEqual(item, numbers[index])
+      let equal = item == numbers[index]
+      XCTAssert(equal == true)
+      assert(equal)
     }
   }
   
   func testIfArrayHasSameLength() {
     let result = numbers.parallelMap { self.numberTransform($0) }
-    
-    
     XCTAssertEqual(numbers.count, result.count)
   }
   

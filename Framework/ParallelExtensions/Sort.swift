@@ -8,9 +8,7 @@
 
 import Foundation
 
-public enum Half {
-  case First, Last
-}
+
 
 public extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int, SubSequence.Index == Int {
 
@@ -19,7 +17,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
     guard !self.isEmpty else { return Array() }
     guard self.count > 1 else { return Array(self) }
     
-    let cpus = numberOfCpus()
+    let cpus = numberOfCores()
 
     guard cpus == 1 else {
       return self.sort(isOrderedBefore)
@@ -29,7 +27,10 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   }
   
   
-  private func merge(var a: [Generator.Element], var b: [Generator.Element], mergeInto acc: [Generator.Element], isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
+  private func merge(a: [Generator.Element], b: [Generator.Element], mergeInto acc: [Generator.Element], isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
+    var a = a
+    var b = b
+    
     guard !a.isEmpty else {
       return acc + b
     }
@@ -59,11 +60,11 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
       let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
       let group = dispatch_group_create()
       
-      dispatch_group_async(group, queue) { () -> Void in
+      dispatch_group_async(group, queue) {
         firstHalf = self.halve(.First).mergeSort(cpus, threadsRunning: threadsRunning+2, isOrderedBefore: isOrderedBefore)
       }
       
-      dispatch_group_async(group, queue) { () -> Void in
+      dispatch_group_async(group, queue) {
         secondHalf = self.halve(.Last).mergeSort(cpus, threadsRunning: threadsRunning+2, isOrderedBefore: isOrderedBefore)
       }
       dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
@@ -80,24 +81,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
 
 
   
-  private func halve(half: Half) -> SubSequence {
-    if self.count == 2 {
-      switch half {
-      case .First:
-        return self[self.startIndex...self.startIndex]
-      case .Last:
-        return self[self.endIndex-1...self.endIndex-1]
-      }
-    } else {
-      let middle = self.startIndex + (self.endIndex - self.startIndex)/2
-      switch half {
-      case .First:
-        return self[self.startIndex..<middle]
-      case .Last:
-        return self[middle..<self.endIndex]
-      }
-    }
-  }
+
 
   
   

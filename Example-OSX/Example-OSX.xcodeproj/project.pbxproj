@@ -19,6 +19,7 @@
 		0C0C64001C5042A600A1D841 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C63F91C5042A600A1D841 /* Map.swift */; };
 		0C0C64011C5042A600A1D841 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C63FA1C5042A600A1D841 /* Sort.swift */; };
 		0C0C64021C5042A600A1D841 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C63FB1C5042A600A1D841 /* Utilities.swift */; };
+		4D4D9C151CDAED550090792A /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D9C141CDAED550090792A /* ArrayExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		0C0C63F91C5042A600A1D841 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Map.swift; path = ../../Framework/ParallelExtensions/Map.swift; sourceTree = "<group>"; };
 		0C0C63FA1C5042A600A1D841 /* Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sort.swift; path = ../../Framework/ParallelExtensions/Sort.swift; sourceTree = "<group>"; };
 		0C0C63FB1C5042A600A1D841 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = ../../Framework/ParallelExtensions/Utilities.swift; sourceTree = "<group>"; };
+		4D4D9C141CDAED550090792A /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayExtensions.swift; path = ../../Framework/ParallelExtensions/ArrayExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				0C0C63F31C50427000A1D841 /* Measure.swift */,
+				4D4D9C141CDAED550090792A /* ArrayExtensions.swift */,
 				0C0C63F51C5042A600A1D841 /* DictionaryExtensions.swift */,
 				0C0C63F61C5042A600A1D841 /* Each.swift */,
 				0C0C63F71C5042A600A1D841 /* Filter.swift */,
@@ -168,6 +171,7 @@
 				0C0C64011C5042A600A1D841 /* Sort.swift in Sources */,
 				0C0C64001C5042A600A1D841 /* Map.swift in Sources */,
 				0C0C63E51C50425900A1D841 /* AppDelegate.swift in Sources */,
+				4D4D9C151CDAED550090792A /* ArrayExtensions.swift in Sources */,
 				0C0C63FF1C5042A600A1D841 /* Find.swift in Sources */,
 				0C0C63FD1C5042A600A1D841 /* Each.swift in Sources */,
 				0C0C63F41C50427000A1D841 /* Measure.swift in Sources */,
@@ -275,6 +279,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = "Example-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "itchingpixels.Example-OSX";
@@ -293,6 +298,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "itchingpixels.Example-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -315,6 +321,7 @@
 				0C0C63F21C50425900A1D841 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

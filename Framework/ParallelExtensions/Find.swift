@@ -16,9 +16,9 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelIndexOf(predicate: Generator.Element -> Bool) -> Int? {
+  func parallelIndexOf(@noescape predicate: Generator.Element -> Bool) -> Int? {
     guard !self.isEmpty else { return nil }
-        
+    
     // if it's running on iOS, we should use the more performant version that's optimised for 2 threads.
     // this makes a huge performance difference, since it slices the array optimally.
     #if os(iOS)
@@ -33,7 +33,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelFind(predicate: Generator.Element -> Bool) -> Self.Generator.Element? {
+  func parallelFind(@noescape predicate: Generator.Element -> Bool) -> Self.Generator.Element? {
     if let foundIndex = self.parallelIndexOf(predicate) {
       return self[foundIndex]
     } else {
@@ -47,7 +47,7 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
   ///
   /// - Warning: Only use it with pure functions that don't manipulate state outside of their scope. The passed funtion is guaranteed to be executed on a background thread.
   @warn_unused_result
-  public func parallelContains(predicate: Generator.Element -> Bool) -> Bool {
+  func parallelContains(@noescape predicate: Generator.Element -> Bool) -> Bool {
     if let _ = self.parallelIndexOf(predicate) {
       return true
     } else {
@@ -61,8 +61,10 @@ public extension CollectionType where SubSequence : CollectionType, SubSequence.
 
 private extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int {
   
-  private func parallelIndexOfOn2Threads(predicate: Generator.Element -> Bool) -> Int? {
-    guard !self.isEmpty else { return nil }
+  func parallelIndexOfOn2Threads(@noescape predicate: Generator.Element -> Bool) -> Int? {
+    
+    typealias Predicate = Generator.Element -> Bool
+    let predicate = unsafeBitCast(predicate, Predicate.self)
     
     let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
     let group = dispatch_group_create()
@@ -94,14 +96,17 @@ private extension CollectionType where SubSequence : CollectionType, SubSequence
   }
   
   
-  private func parallelIndexOfWithDispatchApply(predicate: Generator.Element -> Bool) -> Int? {
+  func parallelIndexOfWithDispatchApply(@noescape predicate: Generator.Element -> Bool) -> Int? {
+    
+    typealias Predicate = Generator.Element -> Bool
+    let predicate = unsafeBitCast(predicate, Predicate.self)
     
     let divideBy = 10
     let batchSize: Int = Int(self.count) / divideBy
     
     var found = Int32(-1)
     
-    dispatch_apply(divideBy, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { index in
+    dispatch_apply(divideBy, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { index in
       let start = self.startIndex + (index * batchSize)
       let end = start + batchSize
       let index = self.batchedIndexOf(range: Range(start...end), batchSize: max(batchSize, 100), predicate: predicate, checkIfContinue: {
@@ -118,7 +123,7 @@ private extension CollectionType where SubSequence : CollectionType, SubSequence
   }
   
   
-  private func batchedIndexOf(range range: Range<Self.Index>, batchSize: Int, predicate: Generator.Element -> Bool, checkIfContinue: () -> Bool) -> Int32 {
+  func batchedIndexOf(range range: Range<Self.Index>, batchSize: Int, predicate: Generator.Element -> Bool, checkIfContinue: () -> Bool) -> Int32 {
     for startIndex in range.startIndex.stride(to: range.endIndex, by: batchSize) {
       let endIndex = min(startIndex + batchSize, self.count)
       for (index, item) in self[startIndex..<endIndex].enumerate() {
